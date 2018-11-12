@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-//import {Link} from 'react-router-dom'
 
 import {p5Controller, optimizedController} from '../simulation/controllers'
 
@@ -74,10 +72,22 @@ class Simulation extends Component {
   handleUsePreviousPopulation = event => {
     event.preventDefault()
     this.setState({
-      currentPopulation: 'local'
+      currentPopulation: populations[event.target.value]
     })
-    global.activePopulation = JSON.parse(global.savedPopulation)
+    global.activePopulation = global.savedPopulation.length
+      ? JSON.parse(global.savedPopulation)
+      : ''
     console.log(`Population - Local - Sucessfully Loaded`)
+    console.log(global.activePopulation)
+  }
+
+  handleUseNewPopulation = event => {
+    event.preventDefault()
+    this.setState({
+      currentPopulation: populations[event.target.value]
+    })
+    global.activePopulation = ''
+    console.log(`Population - New - Sucessfully Loaded`)
     console.log(global.activePopulation)
   }
 
@@ -93,6 +103,7 @@ class Simulation extends Component {
       <div>
         <h2>SIMULATION CONTROL</h2>
         <form onSubmit={this.handleSubmit}>
+          <h4>EVOLUTION SETTINGS</h4>
           <div>
             <label>MUTATION_RATE:</label>
             <input
@@ -136,7 +147,7 @@ class Simulation extends Component {
               name="ITERATIONS"
               onChange={this.handleChange}
             />
-          </div>{' '}
+          </div>
           <div>
             <label>TRAINING_GENERATIONS:</label>
             <input
@@ -148,7 +159,7 @@ class Simulation extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <hr />
+          <h4>FITTNESS FUNCTION SETTINGS</h4>
           <div>
             <label>DURATION_MULTIPLIER:</label>
             <input
@@ -196,11 +207,16 @@ class Simulation extends Component {
           <button type="submit">Apply Changes</button>
         </form>
         <hr />
-        <button type="button" onClick={this.handleSimulationStart}>
-          Run Optimized Simulation
+        <h4>PRELOAD POPULATION</h4>
+        <button type="button" value="new" onClick={this.handleUseNewPopulation}>
+          Load New
         </button>
-        <button type="button" onClick={this.handleDisplayVisual}>
-          Run Visual Simulation
+        <button
+          type="button"
+          value="local"
+          onClick={this.handleUsePreviousPopulation}
+        >
+          Load Local Output
         </button>
         <button
           type="button"
@@ -223,21 +239,22 @@ class Simulation extends Component {
         >
           Load Gen 300
         </button>
-        <button
-          type="button"
-          value="pop_300"
-          onClick={this.handleUsePreviousPopulation}
-        >
-          Load Local Output
+        <hr />
+        <h4>START CONTROLS</h4>
+        <button type="button" onClick={this.handleSimulationStart}>
+          Run Optimized Simulation
+        </button>
+        <button type="button" onClick={this.handleDisplayVisual}>
+          Run Visual Simulation
         </button>
         <hr />
+
         <div id="field" />
         {this.state.displayVisual ? (
           <svg id="draw" className="draw" />
         ) : (
           <span />
         )}
-
         <h2>SIMULATION RESULT</h2>
         <button type="button" onClick={this.handleCopy}>
           Copy to Clipboard
