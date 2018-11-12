@@ -220,6 +220,34 @@ class Simulation extends Component {
         </button>
         <button
           type="button"
+          value="pop_20"
+          onClick={this.handleUseStoredPopulation}
+        >
+          Load Gen 20
+        </button>
+        <button
+          type="button"
+          value="pop_40"
+          onClick={this.handleUseStoredPopulation}
+        >
+          Load Gen 40
+        </button>
+        <button
+          type="button"
+          value="pop_60"
+          onClick={this.handleUseStoredPopulation}
+        >
+          Load Gen 60
+        </button>
+        <button
+          type="button"
+          value="pop_80"
+          onClick={this.handleUseStoredPopulation}
+        >
+          Load Gen 80
+        </button>
+        <button
+          type="button"
           value="pop_100"
           onClick={this.handleUseStoredPopulation}
         >
@@ -227,17 +255,17 @@ class Simulation extends Component {
         </button>
         <button
           type="button"
-          value="pop_200"
+          value="pop_500"
           onClick={this.handleUseStoredPopulation}
         >
-          Load Gen 200
+          Load Gen 500
         </button>
         <button
           type="button"
-          value="pop_300"
+          value="pop_1000"
           onClick={this.handleUseStoredPopulation}
         >
-          Load Gen 300
+          Load Gen 1000
         </button>
         <hr />
         <h4>START CONTROLS</h4>

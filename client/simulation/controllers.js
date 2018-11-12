@@ -40,16 +40,12 @@ export const p5Controller = function(p) {
 
     // Check if evaluation is done
     if (global.iteration === global.ITERATIONS) {
-      console.log('END OF GENERATION')
-      console.log('global.neat.generation', global.neat.generation)
-      console.log('global.TRAINING_GENERATIONS', global.TRAINING_GENERATIONS)
       endEvaluation()
       drawGraph(global.neat.population[0].graph(600, 200), '.draw', false)
 
       global.neat.generation++
 
       if (global.neat.generation === global.TRAINING_GENERATIONS) {
-        console.log('here!!!!!!!!!!!!')
         savePopulation()
         p.remove()
       } else {
