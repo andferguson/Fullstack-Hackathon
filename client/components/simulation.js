@@ -20,7 +20,8 @@ class Simulation extends Component {
       DURATION_MULTIPLIER: String(global.DURATION_MULTIPLIER),
       PENALTY_MULTIPLIER: String(global.PENALTY_MULTIPLIER),
       PROXIMITY_MULTIPLIER: String(global.PROXIMITY_MULTIPLIER),
-      PROXIMITY_EXPONENT: String(global.PROXIMITY_EXPONENT)
+      PROXIMITY_EXPONENT: String(global.PROXIMITY_EXPONENT),
+      UPLOAD: ''
     }
   }
 
@@ -41,6 +42,10 @@ class Simulation extends Component {
     global.ELITISM = Math.round(
       Number(this.state.ELITISM) / 100 * global.PLAYER_AMOUNT
     )
+    global.DURATION_MULTIPLIER = Number(this.state.DURATION_MULTIPLIER)
+    global.PENALTY_MULTIPLIER = Number(this.state.PENALTY_MULTIPLIER)
+    global.PROXIMITY_MULTIPLIER = Number(this.state.PROXIMITY_MULTIPLIER)
+    global.PROXIMITY_EXPONENT = Number(this.state.PROXIMITY_EXPONENT)
   }
 
   handleSimulationStart = event => {
@@ -88,6 +93,16 @@ class Simulation extends Component {
     })
     global.activePopulation = ''
     console.log(`Population - New - Sucessfully Loaded`)
+    console.log(global.activePopulation)
+  }
+
+  handleUseUploadPopulation = event => {
+    event.preventDefault()
+    this.setState({
+      currentPopulation: 'upload'
+    })
+    global.activePopulation = JSON.parse(this.state.UPLOAD)
+    console.log(`Population - Upload - Sucessfully Loaded`)
     console.log(global.activePopulation)
   }
 
@@ -216,7 +231,7 @@ class Simulation extends Component {
           value="local"
           onClick={this.handleUsePreviousPopulation}
         >
-          Load Local Output
+          Load Previous Result
         </button>
         <button
           type="button"
@@ -267,6 +282,18 @@ class Simulation extends Component {
         >
           Load Gen 1000
         </button>
+        <form onSubmit={this.handleUseUploadPopulation}>
+          <div>
+            <input
+              type="text"
+              value={this.state.UPLOAD}
+              placeholder="Upload"
+              name="UPLOAD"
+              onChange={this.handleChange}
+            />
+            <button type="submit">Submit</button>
+          </div>
+        </form>
         <hr />
         <h4>START CONTROLS</h4>
         <button type="button" onClick={this.handleSimulationStart}>
@@ -276,7 +303,6 @@ class Simulation extends Component {
           Run Visual Simulation
         </button>
         <hr />
-
         <div id="field" />
         {this.state.displayVisual ? (
           <svg id="draw" className="draw" />
