@@ -302,6 +302,7 @@ class Simulation extends Component {
         <button type="button" onClick={this.handleDisplayVisual}>
           Run Visual Simulation
         </button>
+
         <hr />
         <div id="field" />
         {this.state.displayVisual ? (
@@ -309,6 +310,7 @@ class Simulation extends Component {
         ) : (
           <span />
         )}
+
         <h2>SIMULATION RESULT</h2>
         <button type="button" onClick={this.handleCopy}>
           Copy to Clipboard

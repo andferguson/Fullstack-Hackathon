@@ -113,13 +113,13 @@ export class Player {
       sfConstants.FINISH_X,
       sfConstants.FINISH_Y
     )
-    if (!isNaN(dist)) {
+    if (!isNaN(dist) && !this.dead) {
       if (global.iteration === global.ITERATIONS - 1) {
         this.brain.score += Math.pow(
           global.PROXIMITY_MULTIPLIER * fieldConstants.MAX_DISTANCE / dist,
           global.PROXIMITY_EXPONENT
         )
-      } else if (this.finish) {
+      } else if (this.finished) {
         this.brain.score *= 10
       } else {
         this.brain.score += global.DURATION_MULTIPLIER
